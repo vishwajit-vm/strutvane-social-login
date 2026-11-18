@@ -111,5 +111,11 @@
     "compat": "^0.2.0-next.0",
     "installer": "./dist/installer.mjs",
     "docs": "https://github.com/vishwajit-vm/strutvane-social-login#readme"
+  },
+  "allowScripts": {
+    "esbuild@0.18.20": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": false
   }
 }
