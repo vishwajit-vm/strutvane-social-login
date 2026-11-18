@@ -1,0 +1,114 @@
+{
+  "name": "@strutvane/social-login",
+  "version": "0.1.0",
+  "description": "Sign in with Google, Microsoft, GitHub and Apple for Strutvane apps (Laravel Socialite for TypeScript): OAuth 2.1 / OpenID Connect with PKCE, state and nonce, verified ID tokens and safe account linking.",
+  "keywords": [
+    "strutvane",
+    "social-login",
+    "oauth",
+    "oauth2",
+    "openid-connect",
+    "oidc",
+    "pkce",
+    "google",
+    "microsoft",
+    "github",
+    "apple",
+    "typescript"
+  ],
+  "homepage": "https://github.com/vishwajit-vm/strutvane-social-login#readme",
+  "bugs": {
+    "url": "https://github.com/vishwajit-vm/strutvane-social-login/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishwajit-vm/strutvane-social-login.git"
+  },
+  "license": "MIT",
+  "author": "The Strutvane Authors",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./provider": {
+      "types": "./dist/provider.d.mts",
+      "default": "./dist/provider.mjs"
+    },
+    "./installer": {
+      "types": "./dist/installer.d.mts",
+      "default": "./dist/installer.mjs"
+    },
+    "./testing": {
+      "types": "./dist/testing.d.mts",
+      "default": "./dist/testing.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=24.3"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.19.0",
+      "onFail": "error"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "build": "tsdown",
+    "ci": "biome check . && tsc --noEmit && vitest run --coverage && tsdown",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "test:perf": "vitest run --config vitest.perf.config.ts"
+  },
+  "peerDependencies": {
+    "@strutvane/framework": "^0.2.0-next.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.7",
+    "@changesets/cli": "3.0.3",
+    "@types/node": "24.19.2",
+    "@vitest/coverage-v8": "5.1.0",
+    "fast-check": "4.10.2",
+    "tsdown": "0.23.7",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  },
+  "strutvane": {
+    "id": "social-login",
+    "name": "Social login",
+    "description": "Sign in with Google, Microsoft, GitHub and Apple.",
+    "category": "identity",
+    "tags": [
+      "auth",
+      "oauth",
+      "oidc",
+      "google",
+      "microsoft",
+      "github",
+      "apple"
+    ],
+    "compat": "^0.2.0-next.0",
+    "installer": "./dist/installer.mjs",
+    "docs": "https://github.com/vishwajit-vm/strutvane-social-login#readme"
+  }
+}
