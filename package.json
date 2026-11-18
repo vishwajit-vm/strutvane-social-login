@@ -1,6 +1,6 @@
 {
   "name": "@strutvane/social-login",
-  "version": "0.1.0",
+  "version": "0.2.0-next.0",
   "description": "Sign in with Google, Microsoft, GitHub and Apple for Strutvane apps (Laravel Socialite for TypeScript): OAuth 2.1 / OpenID Connect with PKCE, state and nonce, verified ID tokens and safe account linking.",
   "keywords": [
     "strutvane",
@@ -86,6 +86,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.6.7",
     "@changesets/cli": "3.0.3",
+    "@strutvane/framework": "0.2.0-next.0",
     "@types/node": "24.19.2",
     "@vitest/coverage-v8": "5.1.0",
     "fast-check": "4.10.2",

@@ -101,9 +101,9 @@ describe('install', () => {
     expect(env).toMatch(/^GOOGLE_CLIENT_SECRET=$/m)
     expect(example).toMatch(/^GOOGLE_CLIENT_SECRET=$/m)
     expect(env).not.toContain('MICROSOFT')
-    expect(result.messages.some((m) => m.message.includes('${APP_URL}/auth/github/callback'))).toBe(
-      true,
-    )
+    expect(
+      result.messages.some((m) => m.message.includes(`${'$'}{APP_URL}/auth/github/callback`)),
+    ).toBe(true)
     expect(result.messages.some((m) => m.message.includes('SocialAccountsToken'))).toBe(true)
   })
 
@@ -197,7 +197,7 @@ describe('uninstall', () => {
   it('on a project without the files does nothing harmful', async () => {
     const root = project({ 'bootstrap/providers.ts': undefined, 'config/index.ts': undefined })
     const result = await runInstaller(installer, { projectRoot: root, mode: 'uninstall' })
-    expect(result.committed).toBe(true)
+    expect(result.changes.filter((c) => c.path !== '.env' && c.path !== '.env.example')).toEqual([])
   })
 })
 

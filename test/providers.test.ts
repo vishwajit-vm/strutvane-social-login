@@ -92,7 +92,7 @@ describe('GitHub', () => {
     const unauthorized = createDriver(settings, {
       http: {
         json: async (url) => ({
-          status: url.endsWith('/token') ? 200 : 401,
+          status: url.endsWith('/access_token') ? 200 : 401,
           headers: new Headers(),
           body: { access_token: 't' },
         }),

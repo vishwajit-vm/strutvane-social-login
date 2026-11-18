@@ -61,6 +61,16 @@ describe('CSRF via state (login CSRF, forged callbacks)', () => {
     expect(errorOf(await browser.request(callback))).toBe('social_state_invalid')
   })
 
+  it('a validly sealed cookie whose content is not a flow object is refused (no crash)', async () => {
+    const h = harness()
+    const browser = h.browser()
+    const callback = h.fakes.google.consent(await browser.start('google'), USERS.google)
+    for (const content of ['null', '[]', '"x"', '{}', '{"v":1,"provider":"google"}']) {
+      browser.jar.set(cookieName('flow', 'google', true), h.sealer.seal('flow:google', content))
+      expect(errorOf(await browser.request(callback))).toBe('social_state_invalid')
+    }
+  })
+
   it('an expired flow (over 10 minutes) is refused', async () => {
     const h = harness()
     const browser = h.browser()

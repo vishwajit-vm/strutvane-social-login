@@ -73,6 +73,18 @@ export function cookieName(
 
 const isString = (v: unknown): v is string => typeof v === 'string'
 
+/** Parse a JSON object; anything else (including `null`, arrays and bad JSON) is `undefined`. */
+function parseObject(text: string): Record<string, unknown> | undefined {
+  try {
+    const value: unknown = JSON.parse(text)
+    return typeof value === 'object' && value !== null && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : undefined
+  } catch {
+    return undefined
+  }
+}
+
 /**
  * Seal a flow for its provider's cookie.
  *
@@ -99,12 +111,8 @@ export function openFlow(
   if (sealed === undefined) return undefined
   const text = sealer.open(`flow:${provider}`, sealed)
   if (text === undefined) return undefined
-  let v: Record<string, unknown>
-  try {
-    v = JSON.parse(text) as Record<string, unknown>
-  } catch {
-    return undefined
-  }
+  const v = parseObject(text)
+  if (v === undefined) return undefined
   const { state, nonce, verifier, returnTo, intent, userId, issuedAt } = v
   if (
     v['v'] !== 1 ||
@@ -147,12 +155,8 @@ export function openHandOff(
   if (sealed === undefined) return undefined
   const text = sealer.open(`handoff:${provider}`, sealed)
   if (text === undefined) return undefined
-  let v: Record<string, unknown>
-  try {
-    v = JSON.parse(text) as Record<string, unknown>
-  } catch {
-    return undefined
-  }
+  const v = parseObject(text)
+  if (v === undefined) return undefined
   const { id, profile, returnTo, intent, userId, issuedAt } = v
   if (
     v['v'] !== 1 ||
