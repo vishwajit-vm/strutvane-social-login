@@ -131,6 +131,21 @@ function keyPair(alg: JwsAlgorithm): { privateKey: KeyObject; jwk: JsonWebKey; k
   }
 }
 
+/**
+ * The first key of each issuer is generated once per process and reused (RSA key generation is
+ * slow, and test suites create many fakes). Different issuers always get different keys, so a
+ * token of one fake never verifies at another; `rotateKeys` always generates a fresh one.
+ */
+const firstKeys = new Map<string, ReturnType<typeof keyPair>>()
+function firstKey(issuer: string, alg: JwsAlgorithm): ReturnType<typeof keyPair> {
+  const id = `${alg} ${issuer}`
+  const cached = firstKeys.get(id)
+  if (cached !== undefined) return cached
+  const created = keyPair(alg)
+  firstKeys.set(id, created)
+  return created
+}
+
 const json = (body: unknown, status = 200): Response =>
   new Response(JSON.stringify(body), {
     status,
@@ -154,7 +169,7 @@ export function createFakeOidcProvider(options: FakeProviderOptions): FakeOidcPr
     issuer,
     api: `${issuer}/api`,
   }
-  let key = keyPair(alg)
+  let key = firstKey(issuer, alg)
   let jwksCount = 0
   const codes = new Map<string, IssuedCode>()
   const tokens = new Map<string, FakeUser>()
