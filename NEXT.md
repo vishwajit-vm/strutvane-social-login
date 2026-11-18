@@ -18,8 +18,10 @@ coordinator pushed a WIP safety commit, 61110a5). Version `0.2.0-next.0` (pre `n
 
 ## How it was verified
 - Framework: `fix/release-0.2` at f658430 packed in a scratchpad worktree, installed with
-  `npm install --no-save --ignore-scripts <tgz>`. Gate results: see the coordinator report and the
-  RELEASE-READINESS rows (*agent-reported* until re-run).
+  `npm install --no-save --ignore-scripts <tgz>`.
+- Stopped (usage limit) before the gate: last full run (before c7960e9's small fixes) was 246
+  tests green, coverage 97.98/93.73/97.92/98.78 *(agent-reported)*; lint and tsc clean at c7960e9.
+  NOT yet run: `npm run ci` 3x, publint --strict, attw esm-only, RELEASE-READINESS rows.
 
 ## Open decisions (project lead)
 1. **Where the account contract lives.** `SocialAccounts` + `SocialAccountsToken` are defined in
