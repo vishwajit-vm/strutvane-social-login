@@ -13,7 +13,7 @@ Project memory for Claude Code in this repository. Keep it short, accurate and c
 ## Status
 
 - Branch `v2/social-login`, version `0.2.0-next.0` (Changesets pre mode `next`), not on npm. See `NEXT.md` and `RELEASE-READINESS.md`.
-- The framework 0.2 is not on npm, so the lockfile has no `@strutvane/framework` entry and `npm ci` fails until it is published. Locally: `npm install`, then `npm install --no-save --ignore-scripts <framework tarball>` (pack it from a framework worktree of `fix/release-0.2`). Never commit `file:`/`link:` specs.
+- Dev-depends on the published `@strutvane/framework` 0.2.0-next.1 (lockfile from the registry; `npm ci` works). Never commit `file:`/`link:` specs.
 - `.github/workflows` are not here yet: they come from the strutvane-tooling sync.
 
 ## Code map

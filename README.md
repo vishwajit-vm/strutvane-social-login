@@ -2,7 +2,7 @@
 
 **"Sign in with Google / Microsoft / GitHub / Apple" for Strutvane apps**: Laravel Socialite for TypeScript, with the security rules built in instead of left to you.
 
-> **Status: `0.2.0-next.0`, not on npm yet.** It needs `@strutvane/framework` 0.2 (also not published yet). See `NEXT.md` and `RELEASE-READINESS.md`.
+> **Status: `0.2.0-next.0`, not on npm yet.** Built and tested against `@strutvane/framework` 0.2.0-next.1. See `NEXT.md` and `RELEASE-READINESS.md`.
 
 | | |
 |---|---|

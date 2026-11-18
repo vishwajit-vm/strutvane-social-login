@@ -17,11 +17,12 @@ coordinator pushed a WIP safety commit, 61110a5). Version `0.2.0-next.0` (pre `n
   RELEASE-READINESS rows.
 
 ## How it was verified
-- Framework: `fix/release-0.2` at f658430 packed in a scratchpad worktree, installed with
-  `npm install --no-save --ignore-scripts <tgz>`.
-- Stopped (usage limit) before the gate: last full run (before c7960e9's small fixes) was 246
-  tests green, coverage 97.98/93.73/97.92/98.78 *(agent-reported)*; lint and tsc clean at c7960e9.
-  NOT yet run: `npm run ci` 3x, publint --strict, attw esm-only, RELEASE-READINESS rows.
+- Dev-depends on the published `@strutvane/framework` 0.2.0-next.1; lockfile refreshed from the
+  registry; `npm ci` clean; `check-deps.mjs` OK.
+- `npm run ci` 3x in a row green (Windows, Node 24.21): 247 tests / 13 files, coverage
+  97.98/93.73/97.92/98.78 *(agent-reported)*.
+- `check-package.mjs` (32 files), publint 0.3.25 --strict, attw 0.18.5 esm-only,
+  `npm audit --omit=dev --audit-level=high` (0), `check-code-rules.mjs`.
 
 ## Open decisions (project lead)
 1. **Where the account contract lives.** `SocialAccounts` + `SocialAccountsToken` are defined in
@@ -40,7 +41,6 @@ coordinator pushed a WIP safety commit, 61110a5). Version `0.2.0-next.0` (pre `n
 7. The catalogue entry says `frameworkRange: ^1.0`; this package declares `compat ^0.2.0-next.0`.
 
 ## Next
-1. After the framework is on npm: `npm install`, commit the lockfile, `npm ci && npm run ci` 3×.
-2. Tooling: add the repo to the strutvane-tooling sync manifest (workflows, scripts).
-3. R3: `security-reviewer` pass on this package; R6: installer e2e in a skeleton app.
-4. Decisions above.
+1. Tooling: add the repo to the strutvane-tooling sync manifest (workflows, scripts).
+2. R3: `security-reviewer` pass on this package; R6: installer e2e in a skeleton app.
+3. Decisions above.
