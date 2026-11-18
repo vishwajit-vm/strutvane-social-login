@@ -23,16 +23,21 @@ import {
   memorySocialAccounts,
 } from '../src/testing/index.ts'
 
-export const APP = 'https://app.test'
-export const MS_TENANT = '11111111-2222-4333-8444-555555555555'
-export const MS_OTHER_TENANT = '99999999-2222-4333-8444-555555555555'
+export const APP: string = 'https://app.test'
+export const MS_TENANT: string = '11111111-2222-4333-8444-555555555555'
+export const MS_OTHER_TENANT: string = '99999999-2222-4333-8444-555555555555'
+
+export interface ManualClock {
+  now(): number
+  advance(ms: number): void
+}
 
 /** A manual clock starting at a fixed instant. */
-export function manualClock(start = Date.UTC(2026, 10, 18, 12, 0, 0)) {
+export function manualClock(start: number = Date.UTC(2026, 10, 18, 12, 0, 0)): ManualClock {
   let t = start
   return {
-    now: () => t,
-    advance: (ms: number) => {
+    now: (): number => t,
+    advance: (ms: number): void => {
       t += ms
     },
   }
@@ -80,7 +85,7 @@ export interface Harness {
   readonly fakes: Readonly<Record<ProviderName, FakeOidcProvider>>
   readonly accounts: MemorySocialAccounts
   readonly logger: ReturnType<typeof recordingLogger>
-  readonly clock: ReturnType<typeof manualClock>
+  readonly clock: ManualClock
   readonly sealer: Sealer
   readonly appleKey: ReturnType<typeof appleKey>
   /** A browser with an empty cookie jar. */
@@ -177,7 +182,7 @@ export function harness(options: HarnessOptions = {}): Harness {
 
 /** A browser: a cookie jar in front of the handler. */
 export class Browser {
-  readonly jar = new Map<string, string>()
+  readonly jar: Map<string, string> = new Map<string, string>()
   readonly #handler: SocialLoginHandler
   constructor(handler: SocialLoginHandler) {
     this.#handler = handler
@@ -226,7 +231,10 @@ export function errorOf(response: Response): string | null {
 }
 
 /** Apple-style form post of `fields` to the callback. */
-export function formPost(browser: Browser, fields: Readonly<Record<string, string>>) {
+export function formPost(
+  browser: Browser,
+  fields: Readonly<Record<string, string>>,
+): Promise<Response> {
   return browser.request('/auth/apple/callback', {
     method: 'POST',
     headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -242,8 +250,8 @@ export const USERS = {
     email: 'ada@contoso.test',
     name: 'Ada',
     claims: {
-      iss: `https://ms.test/${MS_TENANT}/v2.0`,
-      tid: MS_TENANT,
+      iss: 'https://ms.test/11111111-2222-4333-8444-555555555555/v2.0',
+      tid: '11111111-2222-4333-8444-555555555555',
       oid: 'aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee',
       xms_edov: true,
     },
