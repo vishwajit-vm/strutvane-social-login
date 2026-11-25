@@ -143,7 +143,7 @@ jobs:
       # pinning only the action SHA would still run whatever "latest" is. Verified and unknown
       # findings fail the job; unverified pattern matches (test fixtures) are not reported.
       - name: Secrets scan (commits in this push or pull request)
-        uses: trufflesecurity/trufflehog@3bd2b5887eb0efb8fa18bfd1d296032924e4ffdc # v3.99.9
+        uses: trufflesecurity/trufflehog@4ef51f69ca6347aaa76a5e64a87eac9c0c909f71 # v3.100.1
         with:
           version: 3.99.9@sha256:2ec535840f860aa27f11fee20222fb790326ecd66325c96bd49d02ec6af46eca
           extra_args: --results=verified,unknown
